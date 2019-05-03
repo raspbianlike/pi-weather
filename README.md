@@ -1,0 +1,1 @@
+python weather station backend to be used on a rpi
