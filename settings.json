@@ -1,0 +1,21 @@
+{
+  "sensors": {
+    "dht22": {
+      "pin": 4
+    },
+    "mcp3008": {
+      "windmeter_direction": {
+        "index": 0
+      }
+    },
+    "windmeter": {
+      "pin": 5
+    }
+  },
+  "ftp": {
+    "user": "user",
+    "pass": "pass",
+    "ip": "ftp://server"
+  },
+  "baseheight": "600"
+}
