@@ -261,7 +261,8 @@ def update_database():
 def create_graph():
     # didn't have success with args as a list, will try later
     print "creating graphs"
-    rrdtool.graph(
+
+    day_temperature = [
         '{}/day_temperature.png'.format(basepath),
         "--width", '400',
         "--height", '100',
@@ -269,18 +270,9 @@ def create_graph():
         "-v", "°C",
         'DEF:airtemp={}/data.rrd:air_temperature:AVERAGE'.format(basepath),
         'AREA:airtemp#3333CC:°C Luft'
-    )
-    rrdtool.graph(
-        '{}/week_temperature.png'.format(basepath),
-        "--width", '400',
-        "--height", '100',
-        "--start", "end-7d",
-        "-v", "°C",
-        'DEF:airtemp={}/data.rrd:air_temperature:AVERAGE'.format(basepath),
-        'AREA:airtemp#3333CC:°C Luft'
-    )
+    ]
 
-    rrdtool.graph(
+    week_temperature = [
         '{}/week_temperature.png'.format(basepath),
         "--width", '400',
         "--height", '100',
@@ -288,18 +280,13 @@ def create_graph():
         "-v", "°C",
         'DEF:airtemp={}/data.rrd:air_temperature:AVERAGE'.format(basepath),
         'AREA:airtemp#3333CC:°C Luft'
-    )
+    ]
 
-    rrdtool.graph(
-        '{}/week_temperature.png'.format(basepath),
-        "--width", '400',
-        "--height", '100',
-        "--start", "end-7d",
-        "-v", "°C",
-        'DEF:airtemp={}/data.rrd:air_temperature:AVERAGE'.format(basepath),
-        'AREA:airtemp#3333CC:°C Luft'
-    )
-    print "creatd graphs"
+    rrdtool.graph(*day_temperature)
+    rrdtool.graph(*week_temperature)
+
+
+    print "created graphs"
 
 
 data = {"air_temperature": 0.0, "dewpoint": 0.0, "humidity": 0.0, "wind_speed": 0, "wind_direction": 0}
