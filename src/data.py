@@ -269,9 +269,14 @@ def create_graph():
         "--start", "end-1d",
         "-v", "°C",
         'DEF:airtemp={}/data.rrd:air_temperature:AVERAGE'.format(basepath),
+        'DEF:hum={}/data.rrd:humidity:AVERAGE'.format(basepath),
         'AREA:airtemp#3333CC:°C Luft'
+        "CDEF:scaled_hum=hum,2.5,/",
+        "LINE1:scaled_hum#00FF00:R. Luftfeuchte",
+        "--right-axis", "2.5:0",
+        "--right-axis-label", "%",
+        "-v", "°C"
     ]
-
     week_temperature = [
         '{}/week_temperature.png'.format(basepath),
         "--width", '400',
@@ -282,8 +287,30 @@ def create_graph():
         'AREA:airtemp#3333CC:°C Luft'
     ]
 
+    day_wind = [
+        '{}/day_wind.png'.format(basepath),
+        "--width", '400',
+        "--height", '100',
+        "--start", "end-1d",
+        "-v", "km/h",
+        'DEF:speed={}/data.rrd:wind_speed:AVERAGE'.format(basepath),
+        'AREA:speed#00FF00:km/h'
+    ]
+
+    week_wind = [
+        '{}/week_wind.png'.format(basepath),
+        "--width", '400',
+        "--height", '100',
+        "--start", "end-7d",
+        "-v", "km/h",
+        'DEF:speed={}/data.rrd:wind_speed:AVERAGE'.format(basepath),
+        'AREA:airtemp#00FF00:km/h'
+    ]
+
     rrdtool.graph(*day_temperature)
     rrdtool.graph(*week_temperature)
+    rrdtool.graph(*day_wind)
+    rrdtool.graph(*week_wind)
 
 
     print "created graphs"
