@@ -2,3 +2,4 @@
 *.rrd
 data/*
 *.png
+src/build/*
